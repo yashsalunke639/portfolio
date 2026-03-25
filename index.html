@@ -1,386 +1,670 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yash Salunke — Information Security Portfolio</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Salunke — Cybersecurity Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e0f;
+  --ink2: #1c1c1f;
+  --ink3: #2c2c30;
+  --paper: #f3f0e9;
+  --paper2: #ebe7dc;
+  --paper3: #e0dbd0;
+  --rust: #c44a2b;
+  --rust-l: rgba(196,74,43,0.1);
+  --gold: #b07d1a;
+  --sage: #4a6741;
+  --fog: #888890;
+  --fog2: #5e5e66;
+  --border: rgba(14,14,15,0.1);
+  --border2: rgba(14,14,15,0.2);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;overflow-x:hidden;cursor:none}
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #F0F4F8;
-      color: #1A1A1A;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-    }
+/* Grain */
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9000;opacity:.7}
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
+/* Cursor */
+.cursor{position:fixed;width:8px;height:8px;background:var(--rust);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-trail{position:fixed;width:30px;height:30px;border:1.5px solid rgba(196,74,43,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .08s ease}
 
-    /* ── HERO ── */
-    .hero {
-      background: #1F4E79;
-      padding: 2.5rem 2rem 2rem;
-      border-radius: 14px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50px; right: -50px;
-      width: 200px; height: 200px;
-      border-radius: 50%;
-      background: rgba(46,117,182,0.35);
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -70px; right: 80px;
-      width: 140px; height: 140px;
-      border-radius: 50%;
-      background: rgba(46,117,182,0.2);
-    }
-    .hero-name { font-size: 34px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
-    .hero-title { font-size: 15px; color: #BDD7EE; margin-top: 6px; }
-    .hero-contact {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.2rem;
-    }
-    .hero-contact a, .hero-contact span {
-      font-size: 13px; color: #DDEEFF; text-decoration: none;
-      display: flex; align-items: center; gap: 5px;
-    }
-    .hero-contact a:hover { color: #fff; text-decoration: underline; }
-    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
-    .badge {
-      background: rgba(46,117,182,0.45);
-      color: #BDD7EE;
-      font-size: 12px;
-      padding: 4px 13px;
-      border-radius: 20px;
-      border: 0.5px solid rgba(189,215,238,0.35);
-    }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:20px 64px;display:flex;justify-content:space-between;align-items:center;background:rgba(243,240,233,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:4px;color:var(--ink);text-decoration:none}
+.nav-logo em{color:var(--rust);font-style:normal}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:2px;color:var(--fog);text-decoration:none;transition:color .2s;text-transform:uppercase}
+.nav-links a:hover,.nav-links a.active{color:var(--rust)}
+.nav-open{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:2px;padding:5px 14px;border:1px solid var(--rust);color:var(--rust);animation:pulse-border 3s infinite}
+@keyframes pulse-border{0%,100%{box-shadow:0 0 0 0 rgba(196,74,43,.3)}50%{box-shadow:0 0 0 4px rgba(196,74,43,0)}}
 
-    /* ── METRICS ── */
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .metric-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 1.1rem;
-      text-align: center;
-      border: 0.5px solid #D6E4F0;
-    }
-    .metric-val { font-size: 28px; font-weight: 700; color: #2E75B6; }
-    .metric-label { font-size: 12px; color: #666; margin-top: 5px; }
+/* HERO */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding:0 64px;position:relative;overflow:hidden;align-items:center}
+.hero-bg-char{position:absolute;bottom:-60px;right:40px;font-family:'Bebas Neue',sans-serif;font-size:clamp(200px,28vw,340px);color:var(--paper2);line-height:1;pointer-events:none;user-select:none;letter-spacing:-4px;z-index:0}
+.hero-left{z-index:1;padding-top:80px}
+.hero-right{z-index:1;padding-top:80px;padding-left:60px;border-left:1px solid var(--border)}
 
-    /* ── SECTION ── */
-    .section { display: flex; flex-direction: column; gap: 0.75rem; }
-    .section-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #2E75B6;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #2E75B6;
-    }
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:3px;color:var(--rust);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:10px;opacity:0;animation:riseIn .6s .1s ease forwards}
+.hero-tag::before{content:'';width:28px;height:1px;background:var(--rust)}
 
-    /* ── CARD ── */
-    .card {
-      background: #fff;
-      border: 0.5px solid #D6E4F0;
-      border-radius: 12px;
-      padding: 1rem 1.25rem;
-    }
-    .card-accent {
-      border-left: 3px solid #2E75B6;
-      border-radius: 0 12px 12px 0;
-    }
+h1.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,9vw,9rem);line-height:.95;letter-spacing:-1px;color:var(--ink);opacity:0;animation:riseIn .7s .3s ease forwards}
+h1.hero-name .outline{-webkit-text-stroke:1.5px var(--ink);color:transparent;display:block}
 
-    /* ── GRID ── */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hero-roles{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;opacity:0;animation:riseIn .6s .5s ease forwards}
+.role-pill{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:1.5px;padding:6px 14px;border:1px solid var(--border2);color:var(--fog2);text-transform:uppercase}
 
-    /* ── SUMMARY ── */
-    .summary-text { font-size: 14px; color: #444; line-height: 1.75; }
+.hero-desc{margin-top:32px;font-size:.95rem;font-weight:300;line-height:1.8;color:var(--fog2);max-width:480px;opacity:0;animation:riseIn .6s .7s ease forwards}
 
-    /* ── SKILLS ── */
-    .skill-cat { font-size: 12px; font-weight: 700; color: #2E75B6; margin-bottom: 7px; }
-    .skill-tag {
-      display: inline-block;
-      background: #EAF2FB;
-      border: 0.5px solid #B5D4F4;
-      border-radius: 20px;
-      font-size: 12px;
-      color: #185FA5;
-      padding: 4px 10px;
-      margin: 3px;
-    }
-    .divider { height: 0.5px; background: #E0EAF4; margin: 10px 0; }
+.hero-cta-row{display:flex;gap:14px;margin-top:36px;opacity:0;animation:riseIn .6s .9s ease forwards}
+.btn-fill{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--ink);color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;text-decoration:none;text-transform:uppercase;transition:background .2s}
+.btn-fill:hover{background:var(--rust)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border:1px solid var(--border2);color:var(--fog2);font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;text-decoration:none;text-transform:uppercase;transition:border-color .2s,color .2s}
+.btn-ghost:hover{border-color:var(--rust);color:var(--rust)}
 
-    /* ── EXPERIENCE ── */
-    .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
-    .job-title { font-size: 15px; font-weight: 600; color: #1A1A1A; }
-    .job-company { font-size: 13px; color: #2E75B6; font-weight: 600; margin-top: 2px; }
-    .job-date { font-size: 12px; color: #777; font-style: italic; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
-    .tag-blue {
-      background: #E6F1FB; color: #185FA5;
-      font-size: 11px; padding: 2px 8px;
-      border-radius: 4px; font-weight: 600; font-style: normal;
-    }
-    .bullet-list { list-style: none; padding: 0; }
-    .bullet-list li {
-      font-size: 13px; color: #555;
-      padding: 3px 0 3px 16px;
-      position: relative; line-height: 1.55;
-    }
-    .bullet-list li::before {
-      content: '▸';
-      position: absolute; left: 0;
-      color: #2E75B6; font-size: 11px; top: 5px;
-    }
+/* Right side of hero — info card */
+.hero-card{background:var(--paper2);border:1px solid var(--border2);padding:36px;opacity:0;animation:riseIn .7s 1s ease forwards}
+.hc-section{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.hc-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.hc-label{font-family:'IBM Plex Mono',monospace;font-size:.56rem;letter-spacing:2.5px;color:var(--fog);text-transform:uppercase;margin-bottom:12px}
+.hc-value{font-size:.92rem;font-weight:400;color:var(--ink);line-height:1.6}
+.hc-value.mono{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--fog2)}
+.hc-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.hc-chip{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:1px;padding:3px 9px;background:var(--paper3);border:1px solid var(--border2);color:var(--fog2);text-transform:uppercase}
 
-    /* ── CERTS ── */
-    .cert-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 0;
-      border-bottom: 0.5px solid #E0EAF4;
-    }
-    .cert-item:last-child { border-bottom: none; }
-    .cert-dot { width: 8px; height: 8px; border-radius: 50%; background: #2E75B6; flex-shrink: 0; }
-    .cert-name { font-size: 13px; font-weight: 600; color: #1A1A1A; }
-    .cert-issuer { font-size: 12px; color: #777; }
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:0 64px}
 
-    /* ── ACHIEVEMENTS ── */
-    .achiev-item { display: flex; gap: 12px; padding: 9px 0; border-bottom: 0.5px solid #E0EAF4; }
-    .achiev-item:last-child { border-bottom: none; }
-    .achiev-icon {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: #E6F1FB;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: 14px;
-    }
-    .achiev-text { font-size: 13px; color: #555; line-height: 1.55; padding-top: 4px; }
+/* SECTION COMMON */
+.section-wrap{max-width:1300px;margin:0 auto;padding:100px 64px}
+.sec-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:3px;color:var(--rust);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.sec-label::before{content:'';width:20px;height:1px;background:var(--rust)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:1px;line-height:1;margin-bottom:56px}
+.sec-title em{color:var(--rust);font-style:normal}
 
-    /* ── EDUCATION ── */
-    .edu-degree { font-size: 15px; font-weight: 600; color: #1A1A1A; }
-    .edu-school { font-size: 13px; color: #2E75B6; margin-top: 4px; font-weight: 600; }
-    .edu-loc { font-size: 12px; color: #888; margin-top: 3px; font-style: italic; }
-    .edu-note { font-size: 13px; color: #555; margin-top: 8px; }
+/* ABOUT */
+.about-cols{display:grid;grid-template-columns:3fr 2fr;gap:80px;align-items:start}
+.about-body p{font-size:.98rem;font-weight:300;line-height:1.85;color:var(--fog2);margin-bottom:18px}
+.about-body p strong{color:var(--ink);font-weight:500}
+.about-facts{display:grid;gap:1px;border:1px solid var(--border2)}
+.fact-row{display:grid;grid-template-columns:1fr 1.5fr;border-bottom:1px solid var(--border)}
+.fact-row:last-child{border-bottom:none}
+.fact-key{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--fog);text-transform:uppercase;padding:14px 16px;background:var(--paper2);border-right:1px solid var(--border)}
+.fact-val{font-size:.85rem;font-weight:400;color:var(--ink);padding:14px 16px;line-height:1.5}
 
-    /* ── FOOTER ── */
-    .footer {
-      background: #fff;
-      border-radius: 12px;
-      border: 0.5px solid #D6E4F0;
-      padding: 1rem 1.5rem;
-      display: flex; flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-    .footer-item { font-size: 13px; color: #666; }
-    .footer-item span { color: #2E75B6; font-weight: 600; }
+/* SKILLS */
+#skills{background:var(--paper2)}
+.skills-table{width:100%;border-collapse:collapse;margin-top:16px}
+.skills-table tr{border-bottom:1px solid var(--border)}
+.skills-table tr:last-child{border-bottom:none}
+.st-cat{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;color:var(--fog2);text-transform:uppercase;padding:20px 24px 20px 0;width:220px;vertical-align:top;white-space:nowrap}
+.st-items{padding:16px 0}
+.st-tags{display:flex;flex-wrap:wrap;gap:8px}
+.st-tag{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.5px;padding:6px 12px;border:1px solid var(--border2);color:var(--ink2);background:var(--paper);transition:background .2s,border-color .2s,color .2s}
+.st-tag:hover{background:var(--rust-l);border-color:var(--rust);color:var(--rust)}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .grid-2 { grid-template-columns: 1fr; }
-      .metrics { grid-template-columns: repeat(3, 1fr); }
-      .hero-name { font-size: 26px; }
-      .footer { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+/* EXPERIENCE */
+.exp-entry{display:grid;grid-template-columns:1fr 2.5fr;gap:60px;padding:52px 0;border-bottom:1px solid var(--border)}
+.exp-entry:first-of-type{border-top:1px solid var(--border)}
+.exp-left{}
+.exp-period{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:1.5px;color:var(--fog);margin-bottom:10px;text-transform:uppercase}
+.exp-org{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:1px;color:var(--ink);line-height:1.1;margin-bottom:8px}
+.exp-type{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:2px;padding:3px 10px;border:1px solid;text-transform:uppercase;margin-bottom:16px}
+.exp-type.current{border-color:var(--sage);color:var(--sage);background:rgba(74,103,65,.06)}
+.exp-type.past{border-color:var(--fog);color:var(--fog)}
+.exp-title{font-size:.95rem;font-weight:500;color:var(--fog2)}
+.exp-right{}
+.exp-bullets{list-style:none;display:grid;gap:12px;margin-bottom:24px}
+.exp-bullets li{display:flex;gap:14px;font-size:.92rem;font-weight:300;color:var(--fog2);line-height:1.7}
+.exp-bullets li::before{content:'—';color:var(--rust);flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-size:.75rem;margin-top:3px}
+.exp-stack{display:flex;flex-wrap:wrap;gap:6px}
+.exp-tag{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:1px;padding:3px 10px;background:var(--paper2);border:1px solid var(--border2);color:var(--fog);text-transform:uppercase}
+
+/* CERTIFICATIONS */
+#certifications{background:var(--paper2)}
+.certs-list{display:grid;gap:1px;border:1px solid var(--border2)}
+.cert-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;padding:22px 28px;background:var(--paper2);border-bottom:1px solid var(--border);transition:background .2s}
+.cert-row:last-child{border-bottom:none}
+.cert-row:hover{background:var(--paper3)}
+.cert-num{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--paper3);line-height:1;min-width:36px;text-align:right}
+.cert-row:hover .cert-num{color:var(--rust);opacity:.3}
+.cert-info{}
+.cert-name{font-size:.95rem;font-weight:500;color:var(--ink);margin-bottom:3px}
+.cert-issuer{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:1.5px;color:var(--fog);text-transform:uppercase}
+.cert-badge{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:1px;padding:3px 10px;border:1px solid var(--border2);color:var(--fog);text-transform:uppercase}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.edu-card{padding:36px;border:1px solid var(--border2);background:var(--paper);position:relative;overflow:hidden;transition:border-color .3s}
+.edu-card:hover{border-color:var(--border2)}
+.edu-card::before{content:attr(data-cgpa);position:absolute;bottom:-20px;right:16px;font-family:'Bebas Neue',sans-serif;font-size:7rem;color:var(--paper2);line-height:1;pointer-events:none}
+.edu-deg{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.5px;color:var(--ink);line-height:1.1;margin-bottom:6px}
+.edu-field{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;color:var(--rust);text-transform:uppercase;margin-bottom:18px}
+.edu-school{font-size:.9rem;font-weight:400;color:var(--fog2);margin-bottom:4px}
+.edu-meta{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:1.5px;color:var(--fog);text-transform:uppercase}
+.edu-cgpa-badge{display:inline-flex;align-items:baseline;gap:4px;margin-top:16px;padding:6px 14px;background:var(--paper2);border:1px solid var(--border2)}
+.cgpa-num{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--ink)}
+.cgpa-label{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:1.5px;color:var(--fog);text-transform:uppercase}
+
+/* CONTACT */
+#contact{background:var(--ink)}
+#contact .section-wrap{max-width:1300px}
+#contact .sec-label{color:var(--rust)}
+#contact .sec-label::before{background:var(--rust)}
+#contact .sec-title{color:var(--paper)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-intro{font-size:.95rem;font-weight:300;line-height:1.85;color:rgba(244,241,235,.6);margin-bottom:36px}
+.contact-items{display:grid;gap:2px}
+.contact-item{display:flex;align-items:center;gap:16px;padding:16px 20px;background:rgba(244,241,235,.04);border:1px solid rgba(244,241,235,.08);text-decoration:none;transition:background .2s,border-color .2s;cursor:none}
+.contact-item:hover{background:rgba(244,241,235,.07);border-color:rgba(196,74,43,.4)}
+.ci-label-wrap{}
+.ci-label{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:2px;color:rgba(244,241,235,.35);text-transform:uppercase;margin-bottom:2px}
+.ci-value{font-size:.88rem;color:rgba(244,241,235,.85)}
+.ci-arrow{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:rgba(244,241,235,.25);transition:color .2s,transform .2s}
+.contact-item:hover .ci-arrow{color:var(--rust);transform:translateX(3px)}
+
+/* Contact right — form */
+.cf-field{display:grid;gap:8px;margin-bottom:16px}
+.cf-field label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:2px;color:rgba(244,241,235,.35);text-transform:uppercase}
+.cf-field input,.cf-field textarea{background:rgba(244,241,235,.05);border:1px solid rgba(244,241,235,.1);color:rgba(244,241,235,.9);font-family:'IBM Plex Sans',sans-serif;font-size:.9rem;font-weight:300;padding:13px 16px;outline:none;transition:border-color .2s;resize:vertical}
+.cf-field input:focus,.cf-field textarea:focus{border-color:rgba(196,74,43,.5)}
+.cf-field textarea{min-height:110px}
+.cf-submit{width:100%;padding:14px;background:var(--rust);color:var(--paper);font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;border:none;cursor:none;transition:background .2s;margin-top:4px}
+.cf-submit:hover{background:#a83a1f}
+
+/* FOOTER */
+footer{background:var(--ink2);padding:24px 64px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(244,241,235,.06)}
+.footer-copy{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:1.5px;color:rgba(244,241,235,.25);text-transform:uppercase}
+.footer-mark{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:1px;color:var(--rust);opacity:.7}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* Keyframes */
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Responsive */
+@media(max-width:960px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  #hero{grid-template-columns:1fr;padding:100px 24px 60px}
+  .hero-right{padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:40px}
+  .hero-bg-char{display:none}
+  .about-cols,.edu-grid,.contact-grid{grid-template-columns:1fr}
+  .exp-entry{grid-template-columns:1fr;gap:24px}
+  .section-wrap{padding:72px 24px}
+  .divider{margin:0 24px}
+  footer{padding:20px 24px;flex-direction:column;gap:8px}
+}
+</style>
 </head>
 <body>
-<div class="container">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-name">Yash Salunke</div>
-    <div class="hero-title">Information Security Analyst &nbsp;·&nbsp; SOC Analyst &nbsp;·&nbsp; VAPT Consultant</div>
-    <div class="hero-contact">
-      <a href="tel:+918452855162">+91-8452855162</a>
-      <span>·</span>
-      <a href="mailto:yashsalunke639@gmail.com">yashsalunke639@gmail.com</a>
-      <span>·</span>
-      <a href="https://linkedin.com/in/yash-salunke07" target="_blank">linkedin.com/in/yash-salunke07</a>
-      <span>·</span>
-      <span>India</span>
+<div class="cursor" id="cur"></div>
+<div class="cursor-trail" id="curT"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">YASH<em>.</em>SEC</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-open">Open to Work</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-char" aria-hidden="true">YS</div>
+
+  <div class="hero-left">
+    <div class="hero-tag">Cybersecurity Professional</div>
+    <h1 class="hero-name">
+      Yash
+      <span class="outline">Salunke</span>
+    </h1>
+    <div class="hero-roles">
+      <div class="role-pill">VAPT Consultant</div>
+      <div class="role-pill">SOC Analyst</div>
+      <div class="role-pill">Infosec Analyst</div>
     </div>
-    <div class="badge-row">
-      <div class="badge">VAPT</div>
-      <div class="badge">SOC Operations</div>
-      <div class="badge">OWASP Top 10</div>
-      <div class="badge">Splunk SIEM</div>
-      <div class="badge">Burp Suite</div>
-      <div class="badge">Nessus</div>
+    <p class="hero-desc">
+      Information Security Professional with 1+ year of experience in Vulnerability Assessment &amp; Penetration Testing and Security Operations. Based in Mumbai, Maharashtra, India.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#experience" class="btn-fill">View Experience →</a>
+      <a href="mailto:yashsalunke639@gmail.com" class="btn-ghost">Hire Me</a>
     </div>
   </div>
 
-  <!-- METRICS -->
-  <div class="metrics">
-    <div class="metric-card"><div class="metric-val">25+</div><div class="metric-label">Applications Assessed</div></div>
-    <div class="metric-card"><div class="metric-val">1+</div><div class="metric-label">Years Experience</div></div>
-    <div class="metric-card"><div class="metric-val">5</div><div class="metric-label">Certifications</div></div>
-  </div>
-
-  <!-- SUMMARY -->
-  <div class="section">
-    <div class="section-title">Professional Summary</div>
-    <div class="card">
-      <p class="summary-text">
-        Information Security Professional with 1+ year of experience in Vulnerability Assessment and Penetration Testing (VAPT) and Security Operations (SOC). Proven expertise in web application security testing, network vulnerability assessments, and security monitoring using SIEM tools. Skilled in identifying and remediating vulnerabilities — XSS, SQL Injection, CSRF, Auth flaws, Privilege Escalation — following OWASP Top 10 standards, across 25+ applications in government, financial, e-commerce, and educational sectors.
-      </p>
-    </div>
-  </div>
-
-  <!-- SKILLS -->
-  <div class="section">
-    <div class="section-title">Technical Skills</div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="skill-cat">Penetration Testing &amp; Tools</div>
-        <div>
-          <span class="skill-tag">Burp Suite</span>
-          <span class="skill-tag">Nessus</span>
-          <span class="skill-tag">OWASP ZAP</span>
-          <span class="skill-tag">Accunetix</span>
-          <span class="skill-tag">Nmap</span>
-          <span class="skill-tag">SQLMap</span>
-        </div>
-        <div class="divider"></div>
-        <div class="skill-cat">SOC &amp; SIEM</div>
-        <div>
-          <span class="skill-tag">Splunk SIEM</span>
-          <span class="skill-tag">Elastic SIEM</span>
-          <span class="skill-tag">Log Analysis</span>
-          <span class="skill-tag">Alert Triage</span>
-        </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hc-section">
+        <div class="hc-label">Current Position</div>
+        <div class="hc-value">Cyber Security Intern</div>
+        <div class="hc-value mono">Velemento Technologies · Nov 2025 – Present</div>
       </div>
-      <div class="card">
-        <div class="skill-cat">Vulnerability Types</div>
-        <div>
-          <span class="skill-tag">XSS</span>
-          <span class="skill-tag">SQL Injection</span>
-          <span class="skill-tag">CSRF</span>
-          <span class="skill-tag">IDOR</span>
-          <span class="skill-tag">Auth Bypass</span>
-          <span class="skill-tag">Privilege Escalation</span>
-          <span class="skill-tag">Session Hijacking</span>
-        </div>
-        <div class="divider"></div>
-        <div class="skill-cat">Frameworks</div>
-        <div>
-          <span class="skill-tag">OWASP Top 10</span>
-          <span class="skill-tag">Vulnerability Mgmt</span>
-          <span class="skill-tag">Incident Response</span>
-          <span class="skill-tag">CVSS</span>
+      <div class="hc-section">
+        <div class="hc-label">Education</div>
+        <div class="hc-value">M.Sc. Computer Science</div>
+        <div class="hc-value mono">MIT World Peace University, Pune</div>
+      </div>
+      <div class="hc-section">
+        <div class="hc-label">Core Expertise</div>
+        <div class="hc-chips">
+          <span class="hc-chip">Web App Testing</span>
+          <span class="hc-chip">OWASP Top 10</span>
+          <span class="hc-chip">SIEM / SOC</span>
+          <span class="hc-chip">Log Analysis</span>
+          <span class="hc-chip">Burp Suite</span>
+          <span class="hc-chip">Splunk</span>
         </div>
       </div>
+      <div class="hc-section">
+        <div class="hc-label">Location</div>
+        <div class="hc-value mono">Mumbai, Maharashtra, India</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- EXPERIENCE -->
-  <div class="section">
-    <div class="section-title">Professional Experience</div>
+<div class="divider"></div>
 
-    <div class="card card-accent">
-      <div class="job-header">
-        <div>
-          <div class="job-title">Security Consultant</div>
-          <div class="job-company">Velemento Technologies</div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="sec-label">About Me</div>
+    <div class="sec-title">Security-first<br><em>mindset</em></div>
+
+    <div class="about-cols reveal">
+      <div class="about-body">
+        <p>
+          I'm an <strong>Information Security Professional</strong> with 1+ year of hands-on experience across Vulnerability Assessment &amp; Penetration Testing (VAPT) and Security Operations Center (SOC) environments. I currently work as a Cyber Security Intern at <strong>Velemento Technologies</strong>, where I conduct end-to-end security assessments for web applications, APIs, and network infrastructure.
+        </p>
+        <p>
+          My background includes a 6-month stint as a <strong>SOC Analyst Intern at Cybersapiens United LLP</strong>, where I monitored and triaged real-time security alerts using Splunk and Elastic SIEM, performed log analysis, and contributed to incident detection and response workflows.
+        </p>
+        <p>
+          I hold an <strong>M.Sc. in Computer Science from MIT World Peace University, Pune</strong> and a B.Sc. from SMT CHM College, Ulhasnagar — where I graduated with a 9.15 CGPA. My approach is methodical: identify, document, and remediate with clear, actionable reporting.
+        </p>
+      </div>
+      <div class="about-facts">
+        <div class="fact-row">
+          <div class="fact-key">Experience</div>
+          <div class="fact-val">1+ year</div>
         </div>
-        <div class="job-date">Nov 2025 – Present <span class="tag-blue">Current</span></div>
-      </div>
-      <ul class="bullet-list">
-        <li>End-to-end VAPT for web applications, APIs, and network infrastructure across multiple client environments.</li>
-        <li>Identified and exploited XSS, SQL Injection, CSRF, Authentication flaws, Authorization bypass, and Privilege Escalation.</li>
-        <li>Prepared detailed reports with CVSS-rated findings, proof-of-concept evidence, and actionable remediation recommendations.</li>
-        <li>Conducted configuration reviews and security posture assessments for enterprise applications and infrastructure.</li>
-        <li>Assisted organizations in improving security controls and reducing attack surface.</li>
-      </ul>
-    </div>
-
-    <div class="card card-accent">
-      <div class="job-header">
-        <div>
-          <div class="job-title">SOC Analyst Intern</div>
-          <div class="job-company">Cybersapiens United LLP</div>
+        <div class="fact-row">
+          <div class="fact-key">Specialisation</div>
+          <div class="fact-val">VAPT & SOC</div>
         </div>
-        <div class="job-date">Feb 2025 – Aug 2025</div>
-      </div>
-      <ul class="bullet-list">
-        <li>Monitored and triaged security alerts using Splunk and Elastic SIEM in a live SOC environment.</li>
-        <li>Performed log analysis of SSH, DHCP, and firewall logs to detect suspicious and anomalous activity.</li>
-        <li>Investigated brute force attempts, unauthorized access, and abnormal network traffic patterns.</li>
-        <li>Created custom dashboards and detection rules to improve threat monitoring capabilities.</li>
-      </ul>
-    </div>
-
-  <!-- CERTS + EDUCATION -->
-  <div class="grid-2">
-    <div class="section">
-      <div class="section-title">Certifications</div>
-      <div class="card">
-        <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-name">Certified Blue Team Practitioner (CBTP)</div><div class="cert-issuer">SecOps Group</div></div></div>
-        <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-name">Google Cybersecurity Professional Certificate</div><div class="cert-issuer">Google</div></div></div>
-        <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-name">Cybersecurity Analyst Job Simulation</div><div class="cert-issuer">Forage</div></div></div>
-        <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-name">Splunk Security Awareness Training</div><div class="cert-issuer">Splunk</div></div></div>
-        <div class="cert-item"><div class="cert-dot"></div><div><div class="cert-name">Ethical Hacking Bootcamp</div><div class="cert-issuer">Udemy</div></div></div>
-      </div>
-    </div>
-    <div class="section">
-      <div class="section-title">Education</div>
-      <div class="card">
-        <div class="edu-degree">M.Sc. Computer Science</div>
-        <div class="edu-school">MIT World Peace University, Pune</div>
-        <div class="edu-loc">Pune, India</div>
-        <div class="divider"></div>
-        <div class="edu-note">Specialization in Information Security &amp; Computer Networks</div>
+        <div class="fact-row">
+          <div class="fact-key">SIEM Tools</div>
+          <div class="fact-val">Splunk, Elastic</div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-key">Testing Tools</div>
+          <div class="fact-val">Burp Suite, Nessus, Nmap, OWASP ZAP, Acunetix</div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-key">Framework</div>
+          <div class="fact-val">OWASP Top 10</div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-key">Location</div>
+          <div class="fact-val">Mumbai, India</div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-key">Status</div>
+          <div class="fact-val">Open to opportunities</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ACHIEVEMENTS -->
-  <div class="section">
-    <div class="section-title">Key Achievements</div>
-    <div class="card">
-      <div class="achiev-item">
-        <div class="achiev-icon">★</div>
-        <div class="achiev-text">Assessed 25+ applications across government, financial, e-commerce, and educational sectors — improving security posture for diverse client environments.</div>
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="sec-label">Technical Skills</div>
+    <div class="sec-title">Tools &amp;<br><em>capabilities</em></div>
+
+    <table class="skills-table reveal">
+      <tr>
+        <td class="st-cat">Security Testing</td>
+        <td class="st-items">
+          <div class="st-tags">
+            <span class="st-tag">Web Application Penetration Testing</span>
+            <span class="st-tag">Network Vulnerability Assessment</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="st-cat">Security Tools</td>
+        <td class="st-items">
+          <div class="st-tags">
+            <span class="st-tag">Burp Suite</span>
+            <span class="st-tag">Nessus</span>
+            <span class="st-tag">Acunetix</span>
+            <span class="st-tag">Nmap</span>
+            <span class="st-tag">OWASP ZAP</span>
+            <span class="st-tag">Splunk SIEM</span>
+            <span class="st-tag">Elastic SIEM</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="st-cat">Vulnerability Types</td>
+        <td class="st-items">
+          <div class="st-tags">
+            <span class="st-tag">Cross-Site Scripting (XSS)</span>
+            <span class="st-tag">SQL Injection</span>
+            <span class="st-tag">CSRF</span>
+            <span class="st-tag">Authentication Flaws</span>
+            <span class="st-tag">Authorization Bypass</span>
+            <span class="st-tag">Privilege Escalation</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="st-cat">Frameworks</td>
+        <td class="st-items">
+          <div class="st-tags">
+            <span class="st-tag">OWASP Top 10</span>
+            <span class="st-tag">Vulnerability Management</span>
+            <span class="st-tag">Incident Detection &amp; Response</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="st-cat">SOC Operations</td>
+        <td class="st-items">
+          <div class="st-tags">
+            <span class="st-tag">Security Monitoring</span>
+            <span class="st-tag">SIEM Alert Triage</span>
+            <span class="st-tag">Log Analysis (SSH, DHCP, Firewall)</span>
+            <span class="st-tag">Threat Detection</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="st-cat">Programming / OS</td>
+        <td class="st-items">
+          <div class="st-tags">
+            <span class="st-tag">Linux</span>
+            <span class="st-tag">Windows</span>
+            <span class="st-tag">Bash Scripting</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <div class="sec-label">Professional Experience</div>
+    <div class="sec-title">Where I've<br><em>worked</em></div>
+
+    <!-- Job 1 -->
+    <div class="exp-entry reveal">
+      <div class="exp-left">
+        <div class="exp-period">Nov 2025 – Present</div>
+        <div class="exp-org">Velemento<br>Technologies</div>
+        <span class="exp-type current">Current</span>
+        <div class="exp-title">Cyber Security Intern</div>
       </div>
-      <div class="achiev-item">
-        <div class="achiev-icon">⚡</div>
-        <div class="achiev-text">Built and deployed custom SIEM dashboards and detection rules in Splunk, reducing alert triage time and improving threat visibility across the SOC.</div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li>Conducted Vulnerability Assessment and Penetration Testing (VAPT) for web applications, APIs, and network infrastructure across multiple client environments.</li>
+          <li>Performed cybersecurity audits and security assessments to evaluate compliance with industry security standards and best practices.</li>
+          <li>Identified and exploited vulnerabilities including Cross-Site Scripting (XSS), SQL Injection, CSRF, Authentication flaws, Authorization bypass, and Privilege Escalation.</li>
+          <li>Executed manual penetration testing and automated vulnerability scanning using Burp Suite, Nessus, OWASP ZAP, Acunetix, and Nmap.</li>
+          <li>Prepared detailed vulnerability assessment reports with risk ratings, proof-of-concept evidence, and actionable remediation recommendations for clients.</li>
+          <li>Conducted configuration reviews and security posture assessments for enterprise applications and infrastructure.</li>
+          <li>Assisted organizations in improving security controls and reducing attack surface through targeted remediation guidance.</li>
+        </ul>
+        <div class="exp-stack">
+          <span class="exp-tag">Burp Suite</span>
+          <span class="exp-tag">Nessus</span>
+          <span class="exp-tag">OWASP ZAP</span>
+          <span class="exp-tag">Acunetix</span>
+          <span class="exp-tag">Nmap</span>
+          <span class="exp-tag">VAPT</span>
+          <span class="exp-tag">OWASP Top 10</span>
+        </div>
       </div>
-      <div class="achiev-item">
-        <div class="achiev-icon">✓</div>
-        <div class="achiev-text">Delivered comprehensive VAPT reports with CVSS-rated findings, enabling clients to remediate critical vulnerabilities efficiently.</div>
+    </div>
+
+    <!-- Job 2 -->
+    <div class="exp-entry reveal">
+      <div class="exp-left">
+        <div class="exp-period">Feb 2025 – Aug 2025</div>
+        <div class="exp-org">Cybersapiens<br>United LLP</div>
+        <span class="exp-type past">Past</span>
+        <div class="exp-title">SOC Analyst Intern</div>
       </div>
-      <div class="achiev-item">
-        <div class="achiev-icon">🔍</div>
-        <div class="achiev-text">Identified and escalated brute-force and unauthorized access incidents in real-time SOC monitoring environments.</div>
+      <div class="exp-right">
+        <ul class="exp-bullets">
+          <li>Monitored and analyzed security alerts and events using SIEM tools (Splunk and Elastic SIEM) in a live Security Operations Center environment.</li>
+          <li>Performed log analysis of SSH, DHCP, and firewall logs to detect suspicious and anomalous activity.</li>
+          <li>Investigated brute force attempts, unauthorized access attempts, and abnormal network traffic patterns.</li>
+          <li>Assisted in incident detection and response activities, following SOC runbooks and escalation procedures.</li>
+          <li>Created dashboards and custom alerts to enhance threat monitoring and detection capabilities.</li>
+        </ul>
+        <div class="exp-stack">
+          <span class="exp-tag">Splunk</span>
+          <span class="exp-tag">Elastic SIEM</span>
+          <span class="exp-tag">Log Analysis</span>
+          <span class="exp-tag">Threat Detection</span>
+          <span class="exp-tag">Incident Response</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-wrap">
+    <div class="sec-label">Certifications</div>
+    <div class="sec-title">Credentials &amp;<br><em>training</em></div>
+
+    <div class="certs-list reveal">
+      <div class="cert-row">
+        <div class="cert-num">01</div>
+        <div class="cert-info">
+          <div class="cert-name">Certified Blue Team Practitioner (CBTP)</div>
+          <div class="cert-issuer">Security Blue Team</div>
+        </div>
+        <div class="cert-badge">Defensive Sec</div>
+      </div>
+      <div class="cert-row">
+        <div class="cert-num">02</div>
+        <div class="cert-info">
+          <div class="cert-name">Google Cybersecurity Professional Certificate</div>
+          <div class="cert-issuer">Google / Coursera</div>
+        </div>
+        <div class="cert-badge">Cybersecurity</div>
+      </div>
+      <div class="cert-row">
+        <div class="cert-num">03</div>
+        <div class="cert-info">
+          <div class="cert-name">Ethical Hacking Bootcamp</div>
+          <div class="cert-issuer">Udemy</div>
+        </div>
+        <div class="cert-badge">Offensive Sec</div>
+      </div>
+      <div class="cert-row">
+        <div class="cert-num">04</div>
+        <div class="cert-info">
+          <div class="cert-name">Cybersecurity Analyst Job Simulation</div>
+          <div class="cert-issuer">Forage</div>
+        </div>
+        <div class="cert-badge">Simulation</div>
+      </div>
+      <div class="cert-row">
+        <div class="cert-num">05</div>
+        <div class="cert-info">
+          <div class="cert-name">Splunk Security Awareness Training</div>
+          <div class="cert-issuer">Splunk</div>
+        </div>
+        <div class="cert-badge">SIEM</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-item">Email: <span>yashsalunke639@gmail.com</span></div>
-    <div class="footer-item">Phone: <span>+91-8452855162</span></div>
-    <div class="footer-item">LinkedIn: <span>linkedin.com/in/yash-salunke07</span></div>
-    <div class="footer-item">Location: <span>India</span></div>
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="sec-label">Education</div>
+    <div class="sec-title">Academic<br><em>background</em></div>
+
+    <div class="edu-grid reveal">
+      <div class="edu-card" data-cgpa="6.71">
+        <div class="edu-deg">Master of Science</div>
+        <div class="edu-field">Computer Science</div>
+        <div class="edu-school">MIT World Peace University</div>
+        <div class="edu-meta">Pune, India</div>
+        <div class="edu-cgpa-badge">
+          <span class="cgpa-num">6.71</span>
+          <span class="cgpa-label">CGPA</span>
+        </div>
+      </div>
+      <div class="edu-card" data-cgpa="9.15">
+        <div class="edu-deg">Bachelor of Science</div>
+        <div class="edu-field">Computer Science</div>
+        <div class="edu-school">SMT CHM College</div>
+        <div class="edu-meta">Ulhasnagar, India</div>
+        <div class="edu-cgpa-badge">
+          <span class="cgpa-num">9.15</span>
+          <span class="cgpa-label">CGPA</span>
+        </div>
+      </div>
+    </div>
   </div>
+</section>
 
-</div>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap">
+    <div class="sec-label">Contact</div>
+    <div class="sec-title">Let's<br><em>connect</em></div>
+
+    <div class="contact-grid reveal">
+      <div>
+        <p class="contact-intro">
+          I'm actively looking for opportunities in cybersecurity — VAPT consulting, SOC roles, or security analyst positions. If you have a role or a project, reach out.
+        </p>
+        <div class="contact-items">
+          <a href="mailto:yashsalunke639@gmail.com" class="contact-item">
+            <div class="ci-label-wrap">
+              <div class="ci-label">Email</div>
+              <div class="ci-value">yashsalunke639@gmail.com</div>
+            </div>
+            <div class="ci-arrow">→</div>
+          </a>
+          <a href="tel:+918452855162" class="contact-item">
+            <div class="ci-label-wrap">
+              <div class="ci-label">Phone</div>
+              <div class="ci-value">+91 84528 55162</div>
+            </div>
+            <div class="ci-arrow">→</div>
+          </a>
+          <a href="https://linkedin.com/in/yash-salunke07" target="_blank" class="contact-item">
+            <div class="ci-label-wrap">
+              <div class="ci-label">LinkedIn</div>
+              <div class="ci-value">linkedin.com/in/yash-salunke07</div>
+            </div>
+            <div class="ci-arrow">→</div>
+          </a>
+          <a href="https://yashsalunke639.github.io/portfolio" target="_blank" class="contact-item">
+            <div class="ci-label-wrap">
+              <div class="ci-label">Portfolio</div>
+              <div class="ci-value">yashsalunke639.github.io/portfolio</div>
+            </div>
+            <div class="ci-arrow">→</div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="cf-field">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jane Smith">
+        </div>
+        <div class="cf-field">
+          <label>Email</label>
+          <input type="email" placeholder="jane@company.com">
+        </div>
+        <div class="cf-field">
+          <label>Message</label>
+          <textarea placeholder="Tell me about the opportunity..."></textarea>
+        </div>
+        <button class="cf-submit" onclick="submitForm(this)">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-copy">© 2025 Yash Salunke · Mumbai, India</div>
+  <div class="footer-mark">VAPT · SOC · INFOSEC</div>
+</footer>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const curT = document.getElementById('curT');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+(function loop(){ tx+=(mx-tx)*.12; ty+=(my-ty)*.12; curT.style.left=tx+'px'; curT.style.top=ty+'px'; requestAnimationFrame(loop); })();
+document.querySelectorAll('a,button,.cert-row,.st-tag,.edu-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.style.width='14px'; cur.style.height='14px'; curT.style.width='46px'; curT.style.height='46px'; });
+  el.addEventListener('mouseleave',()=>{ cur.style.width='8px'; cur.style.height='8px'; curT.style.width='30px'; curT.style.height='30px'; });
+});
+
+// Reveal on scroll
+const io = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), i*80); io.unobserve(e.target); } });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Active nav
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-120) cur=s.id; });
+  links.forEach(a=>{ a.classList.toggle('active', a.getAttribute('href')==='#'+cur); });
+});
+
+// Form
+function submitForm(btn){
+  btn.textContent='Sent ✓';
+  btn.style.background='#4a6741';
+  setTimeout(()=>{ btn.textContent='Send Message →'; btn.style.background=''; },3000);
+}
+</script>
 </body>
 </html>
